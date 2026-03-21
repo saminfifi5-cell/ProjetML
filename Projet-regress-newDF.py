@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split 
 
+#test push github
+
 df = pd.read_excel(r"C:\Users\swask\Desktop\Travail\cours d'ingé\2iA\Introduction Machine Learning\Projet\Loan_default.xlsx")
 df = df.drop('LoanID', axis=1)
 for col in df.columns:
