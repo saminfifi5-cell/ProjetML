@@ -133,3 +133,24 @@ plt.ylabel("Loss")
 plt.title("Convergence de la descente de gradient")
 plt.grid(True)
 plt.show()
+
+
+# Sauvegarde du modèle dans un fichier pickle pour une utilisation future #
+
+import pickle
+import os
+
+# Créer le dossier models/ s'il n'existe pas
+os.makedirs('models', exist_ok=True)
+
+# Sauvegarder le modèle
+model = {
+    'weights': w,
+    'mean': mean,
+    'std': std
+}
+
+with open('models/logistic_model.pkl', 'wb') as f:
+    pickle.dump(model, f)
+
+print("Modèle sauvegardé dans models/logistic_model.pkl")
