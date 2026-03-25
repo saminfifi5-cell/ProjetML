@@ -1,16 +1,17 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split 
+import matplotlib.pyplot as plt
 
 #test push github
 
-df = pd.read_excel(r"C:\Users\swask\Desktop\Travail\cours d'ingé\2iA\Introduction Machine Learning\Projet\Loan_default.xlsx")
-df = df.drop('LoanID', axis=1)
-for col in df.columns:
-    if df[col].dtype == 'object':
-        df[col] = pd.factorize(df[col])[0]
+#df = pd.read_excel(r"C:\Users\swask\Desktop\Travail\coursinge\2iA\Introduction_Machine_Learning\Projet\Loan_default.xlsx")
+#df = df.drop('LoanID', axis=1)
+#for col in df.columns:
+#    if df[col].dtype == 'object':
+#        df[col] = pd.factorize(df[col])[0]
 
-print(df.head(20))
+#print(df.head(20))
 
 
 df = pd.read_csv('Loan_default.csv', encoding='latin1', sep=None, engine='python')
@@ -65,15 +66,18 @@ X_test  = np.hstack([np.ones((X_test.shape[0], 1)), X_test])
 
 ### fonctions ###
 
+# définition de la fonction sigmoïde pour la régression logistique #
 def sigmoid(z):
     return 1 / (1 + np.exp(-np.clip(z, -500, 500)))
+
+# définition de la fonction log-loss (perte) pour la régression logistique #
 
 def compute_loss(y_true, y_pred):
     y_pred = np.clip(y_pred, 1e-9, 1 - 1e-9)
     return -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
 
 
-
+# implémentation de la descente de gradient pour la régression logistique avec régularisation L2 (Ridge) #
 
 def gradient_descent(X, y, lr=0.01, n_iter=1000, accuracy_threshold=0.80, lambda_=0.01):
     
@@ -96,8 +100,12 @@ def gradient_descent(X, y, lr=0.01, n_iter=1000, accuracy_threshold=0.80, lambda
 
     return w, history
 
+# fonction de prédiction, on définit le seuil #
+
 def predict(X, w, threshold=0.5):
     return (sigmoid(X @ w) >= threshold).astype(int)
+
+# fonction d'évaluation #
 
 def evaluate(y_true, y_pred, label=""):
     tp = np.sum((y_pred == 1) & (y_true == 1))
@@ -116,3 +124,12 @@ w, loss_history = gradient_descent(X_train, y_train, lr=0.01, n_iter=1000)
 
 evaluate(y_train, predict(X_train, w), label="Train")
 evaluate(y_test,  predict(X_test,  w), label="Test ")
+
+# plot de la loss #
+
+plt.plot(loss_history)
+plt.xlabel("Itérations")
+plt.ylabel("Loss")
+plt.title("Convergence de la descente de gradient")
+plt.grid(True)
+plt.show()
