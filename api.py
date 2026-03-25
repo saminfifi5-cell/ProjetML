@@ -7,7 +7,7 @@ import pickle
 app = FastAPI()
 
 # Chargement du modèle au démarrage
-with open('logistic_model.pkl', 'rb') as f:
+with open("models/logistic_model.pkl", 'rb') as f:
     model = pickle.load(f)
 
 w    = model['weights']
