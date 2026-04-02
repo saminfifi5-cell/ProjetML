@@ -1,0 +1,11 @@
+# Environnement et cache
+env/
+# Données brutes et intermédiaires
+Loan_defalut.csv
+data_cleaned/
+data_transformed/
+data_tf_pipelines/
+# Modèles intermédiaires
+saved_models/
+tensorboard_logs/
+__pycache__/
