@@ -144,10 +144,12 @@ import os
 os.makedirs('models', exist_ok=True)
 
 # Sauvegarder le modèle
+feature_names = df_balanced.drop(columns=['Default']).columns.tolist()
 model = {
     'weights': w,
     'mean': mean,
-    'std': std
+    'std': std,
+    'features': feature_names
 }
 
 with open('models/logistic_model.pkl', 'wb') as f:

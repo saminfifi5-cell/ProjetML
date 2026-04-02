@@ -25,10 +25,25 @@ class DossierClient(BaseModel):
     InterestRate: float
     LoanTerm: int
     DTIRatio: float
-    HasMortgage: int       # 0 ou 1
-    HasDependents: int     # 0 ou 1
-    HasCoSigner: int       # 0 ou 1
-    # ... ajouter toutes les features one-hot encodées
+    HasMortgage: int
+    HasDependents: int
+    HasCoSigner: int
+    Education_Bachelors: int = 0
+    Education_High_School: int = 0
+    Education_Masters: int = 0
+    Education_PhD: int = 0
+    EmploymentType_Full_time: int = 0
+    EmploymentType_Part_time: int = 0
+    EmploymentType_Self_employed: int = 0
+    EmploymentType_Unemployed: int = 0
+    MaritalStatus_Divorced: int = 0
+    MaritalStatus_Married: int = 0
+    MaritalStatus_Single: int = 0
+    LoanPurpose_Auto: int = 0
+    LoanPurpose_Business: int = 0
+    LoanPurpose_Education: int = 0
+    LoanPurpose_Home: int = 0
+    LoanPurpose_Other: int = 0
 
 def sigmoid(z):
     return 1 / (1 + np.exp(-np.clip(z, -500, 500)))
@@ -50,7 +65,7 @@ def predict(dossier: DossierClient):
 
     return {
         "probabilite": round(float(proba), 3),
-        "decision": decision
+        "decision": "Défaut probable" if proba >= 0.5 else "Pas de défaut"
     }
 
 # Lancer avec : uvicorn api:app --reload
