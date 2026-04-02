@@ -9,3 +9,4 @@ data_tf_pipelines/
 saved_models/
 tensorboard_logs/
 __pycache__/
+*pkl
