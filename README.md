@@ -1,4 +1,4 @@
-Projet de machine learning /n
+Projet de machine learning  
 Groupe 10
 Sami Nfifi
 Richard Chalmers 
